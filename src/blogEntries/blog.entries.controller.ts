@@ -1,24 +1,24 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { QuoteService } from './quote.service';
-import { Quote, Quotes } from 'src/types/quotes';
+import { BlogEntriesService } from './blog.entries.service';
+import { BlogEntries, BlogEntry } from '../types/BlogEntry';
 
-@Controller('quotes')
-export class QuoteController {
-  constructor(private readonly quoteService: QuoteService) {}
+@Controller('blogEntries')
+export class BlogEntriesController {
+  constructor(private readonly blogEntrieService: BlogEntriesService) {}
 
   @Get('/')
-  async getAll(): Promise<Quotes> {
-    return this.quoteService.getAllQuotes();
+  async getAll(): Promise<BlogEntries> {
+    return this.blogEntrieService.getAllBlogEntries();
   }
 
-  @Get('/random')
-  async getRandom() {
-    return this.quoteService.getRandomQuote();
-  }
+  // @Get('/random')
+  // async getRandom() {
+  //   return this.blogEntrieService.getRandomBlogEntrie();
+  // }
 
-  @Get('/:id')
-  async getOne(@Param('id') id: string): Promise<Quote | undefined> {
-    const quote = this.quoteService.getQuoteById(id);
-    return quote;
-  }
+  // @Get('/:id')
+  // async getOne(@Param('id') id: string): Promise<BlogEntries | undefined> {
+  //   const blogEntrie = this.blogEntrieService.getBlogEntriesById(id);
+  //   return blogEntrie;
+  // }
 }

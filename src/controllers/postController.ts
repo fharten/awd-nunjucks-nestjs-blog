@@ -1,19 +1,19 @@
-import { Request, Response } from "express";
-import { BlogPost } from "../types/BlogPost";
-import { getAllBlogEntries } from "../models/blogEntriesModel";
-import { getAuthorById } from "../models/authorsModel";
+import { Request, Response } from 'express';
+import { BlogEntry } from '../types/BlogEntry';
+import { getAllBlogEntries } from '../models/blogEntriesModel';
+import { getAuthorById } from '../models/authorsModel';
 
 export const postController = async (req: Request, res: Response) => {
   const slug = req.params.slug;
   const blogEntries = await getAllBlogEntries();
-  const post = blogEntries.find((p: BlogPost) => p.slug === slug);
+  const post = blogEntries.find((p: BlogEntry) => p.slug === slug);
 
-  if (!post) return res.status(404).send("Post not found");
+  if (!post) return res.status(404).send('Post not found');
   const author = await getAuthorById(post.author);
 
-  res.render("../views/pages/post.html", {
+  res.render('../views/pages/post.html', {
     meta: {
-      title: "Post",
+      title: 'Post',
     },
     headerData: {
       image: post.image,

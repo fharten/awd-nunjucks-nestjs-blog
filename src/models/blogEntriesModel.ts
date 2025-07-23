@@ -1,15 +1,15 @@
-import { BlogPost, BlogPosts } from "../types/BlogPost";
-import { sanitizeBlogPost } from "../utils/transformData";
-import { getDB } from "../db/database";
+import { BlogEntry, BlogEntries } from '../types/BlogEntry';
+import { sanitizeBlogPost } from '../utils/transformData';
+import { getDB } from '../db/database';
 
-export async function getAllBlogEntries(): Promise<BlogPosts> {
+export async function getAllBlogEntries(): Promise<BlogEntries> {
   const db = getDB();
 
   return new Promise((resolve, reject) => {
-    db.all<BlogPost>(
+    db.all<BlogEntry>(
       `SELECT * FROM blog_entries`,
       [],
-      (error: Error | null, rowData: BlogPosts) => {
+      (error: Error | null, rowData: BlogEntries) => {
         if (error) return reject(error);
         resolve(rowData);
       },
@@ -19,14 +19,14 @@ export async function getAllBlogEntries(): Promise<BlogPosts> {
 
 export async function getAllBlogEntriesPaginatedSortedByDateDesc(
   pageNumber: number,
-): Promise<BlogPosts> {
+): Promise<BlogEntries> {
   const db = getDB();
 
   return new Promise((resolve, reject) => {
-    db.all<BlogPost>(
+    db.all<BlogEntry>(
       `SELECT * FROM blog_entries ORDER BY createdAt DESC LIMIT 5 OFFSET ?`,
       [(pageNumber - 1) * 5],
-      (error: Error | null, rowData: BlogPosts) => {
+      (error: Error | null, rowData: BlogEntries) => {
         if (error) return reject(error);
         resolve(rowData);
       },
@@ -34,14 +34,14 @@ export async function getAllBlogEntriesPaginatedSortedByDateDesc(
   });
 }
 
-export async function getAllBlogEntriesSortedByDateDesc(): Promise<BlogPosts> {
+export async function getAllBlogEntriesSortedByDateDesc(): Promise<BlogEntries> {
   const db = getDB();
 
   return new Promise((resolve, reject) => {
-    db.all<BlogPost>(
+    db.all<BlogEntry>(
       `SELECT * FROM blog_entries ORDER BY createdAt DESC`,
       [],
-      (error: Error | null, rowData: BlogPosts) => {
+      (error: Error | null, rowData: BlogEntries) => {
         if (error) return reject(error);
         resolve(rowData);
       },
@@ -51,14 +51,14 @@ export async function getAllBlogEntriesSortedByDateDesc(): Promise<BlogPosts> {
 
 export async function getBlogEntriesByAuthor(
   authorId: string,
-): Promise<BlogPosts> {
+): Promise<BlogEntries> {
   const db = getDB();
 
   return new Promise((resolve, reject) => {
-    db.all<BlogPost>(
+    db.all<BlogEntry>(
       `SELECT * FROM blog_entries WHERE author = ?`,
       [authorId],
-      (error: Error | null, rowData: BlogPosts) => {
+      (error: Error | null, rowData: BlogEntries) => {
         if (error) return reject(error);
         resolve(rowData);
       },
@@ -66,7 +66,7 @@ export async function getBlogEntriesByAuthor(
   });
 }
 
-export async function createPost(post: BlogPost): Promise<Number> {
+export async function createPost(post: BlogEntry): Promise<Number> {
   const db = getDB();
   const sanitizedPost = sanitizeBlogPost(post);
   const {
@@ -113,7 +113,7 @@ export async function createPost(post: BlogPost): Promise<Number> {
 }
 
 export async function updatePost(
-  updatedPost: BlogPost,
+  updatedPost: BlogEntry,
   id: string,
 ): Promise<Number> {
   const db = getDB();

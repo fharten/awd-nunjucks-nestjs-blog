@@ -1,10 +1,10 @@
-import slugify from "slugify";
-import sanitizeHtml from "sanitize-html";
-import { v4 as uuidv4 } from "uuid";
-import { BlogPost } from "../types/BlogPost";
-import { Author } from "../types/Author";
+import slugify from 'slugify';
+import sanitizeHtml from 'sanitize-html';
+import { v4 as uuidv4 } from 'uuid';
+import { BlogEntry } from '../types/BlogEntry';
+import { Author } from '../types/Author';
 
-export function sanitizeBlogPost(post: BlogPost) {
+export function sanitizeBlogPost(post: BlogEntry) {
   const { title, image, author, teaser, content, createdAt, date } = post;
   const sanitized = {
     id: post.id ? post.id : uuidv4(),

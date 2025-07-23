@@ -1,7 +1,7 @@
-import { BlogPost, BlogPosts } from "../types/BlogPost";
-import { sanitizeAuthor } from "../utils/transformData";
-import { getDB } from "../db/database";
-import { Author, Authors } from "../types/Author";
+import { BlogEntry, BlogEntries } from '../types/BlogEntry';
+import { sanitizeAuthor } from '../utils/transformData';
+import { getDB } from '../db/database';
+import { Author, Authors } from '../types/Author';
 
 export async function getAllAuthors(): Promise<Authors> {
   const db = getDB();

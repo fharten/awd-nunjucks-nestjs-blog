@@ -1,4 +1,4 @@
-export interface BlogPost {
+export interface BlogEntry {
   id: string;
   title: string;
   image: string;
@@ -12,4 +12,4 @@ export interface BlogPost {
   slug?: string;
 }
 
-type BlogPosts = BlogPost[];
+type BlogEntries = BlogEntry[];

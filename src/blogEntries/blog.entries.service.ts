@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { Quote, Quotes } from 'src/types/quotes';
-import { QuoteRepository } from './quote.repository';
+import { BlogEntries, BlogEntry } from '../types/BlogEntry';
+import { BlogEntriesRepository } from './blog.entries.repository';
 
 @Injectable()
-export class QuoteService {
-  constructor(private readonly quoteRepository: QuoteRepository) {} // Inject the repository
+export class BlogEntriesService {
+  constructor(private readonly quoteRepository: BlogEntriesRepository) {} // Inject the repository
 
-  async getAllQuotes(): Promise<Quotes> {
+  async getAllBlogEntries(): Promise<BlogEntries> {
     return this.quoteRepository.findAll();
   }
 
-  async getQuoteById(id: string): Promise<Quote | undefined> {
-    return this.quoteRepository.findById(id);
-  }
+  // async getBlogEntriesById(id: string): Promise<BlogEntries | undefined> {
+  //   return this.quoteRepository.findById(id);
+  // }
 
-  async getRandomQuote(): Promise<Quote | undefined> {
-    return this.quoteRepository.findRandom();
-  }
+  // async getRandomBlogEntries(): Promise<BlogEntries | undefined> {
+  //   return this.quoteRepository.findRandom();
+  // }
 }

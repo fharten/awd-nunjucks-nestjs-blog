@@ -1,22 +1,22 @@
-import { Request, Response } from "express";
-import { BlogPost } from "../../types/BlogPost";
-import { getAllBlogEntries } from "../../models/blogEntriesModel";
-import { getAllAuthors, getAuthorById } from "../../models/authorsModel";
+import { Request, Response } from 'express';
+import { BlogEntry } from '../../types/BlogEntry';
+import { getAllBlogEntries } from '../../models/blogEntriesModel';
+import { getAllAuthors, getAuthorById } from '../../models/authorsModel';
 
 export const adminPostController = async (req: Request, res: Response) => {
   const id = req.params.id;
   const blogEntries = await getAllBlogEntries();
   const authors = await getAllAuthors();
-  const post = blogEntries.find((p: BlogPost) => p.id === id);
+  const post = blogEntries.find((p: BlogEntry) => p.id === id);
 
-  if (!post) return res.status(404).send("Post not found");
+  if (!post) return res.status(404).send('Post not found');
   const author = await getAuthorById(post.author);
 
-  res.render("../views/admin/post.html", {
+  res.render('../views/admin/post.html', {
     blogEntries,
     authors,
     meta: {
-      title: "Admin Panel | Edit Post",
+      title: 'Admin Panel | Edit Post',
       postUrl: `update/${id}`,
     },
     mainData: {
