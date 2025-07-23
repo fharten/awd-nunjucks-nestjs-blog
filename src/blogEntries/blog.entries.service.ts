@@ -7,6 +7,7 @@ export class BlogEntriesService {
   constructor(private readonly quoteRepository: BlogEntriesRepository) {} // Inject the repository
 
   async getAllBlogEntries(): Promise<BlogEntries> {
+    console.log('BlogEntriesService');
     return this.quoteRepository.findAll();
   }
 

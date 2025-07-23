@@ -13,6 +13,10 @@ async function bootstrap() {
 
   // configurePassport();
 
+  await app.listen(3232);
+  console.log(`Server ist running on port ${await app.getUrl()}`);
+
   connectDB();
 }
+
 bootstrap();

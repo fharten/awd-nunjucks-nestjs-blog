@@ -4,12 +4,17 @@ import { BlogEntries, BlogEntry } from '../types/BlogEntry';
 
 @Controller('blogEntries')
 export class BlogEntriesController {
-  constructor(private readonly blogEntrieService: BlogEntriesService) {}
+  constructor(private readonly blogEntriesService: BlogEntriesService) {}
 
-  @Get('/')
-  async getAll(): Promise<BlogEntries> {
-    return this.blogEntrieService.getAllBlogEntries();
+  @Get()
+  getRoot() {
+    console.log('hello world');
   }
+
+  // async getAll(): Promise<BlogEntries> {
+  //   console.log('BlogEntriesController');
+  //   return this.blogEntriesService.getAllBlogEntries();
+  // }
 
   // @Get('/random')
   // async getRandom() {

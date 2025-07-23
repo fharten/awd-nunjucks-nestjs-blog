@@ -13,7 +13,7 @@ export class BlogEntriesRepository {
 
   async findAll(): Promise<BlogEntries> {
     // await this.init();
-
+    console.log('BlogEntriesRepository');
     const db = getDB();
 
     return new Promise((resolve, reject) => {
