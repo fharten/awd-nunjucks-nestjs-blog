@@ -1,0 +1,66 @@
+{% extends '_layouts/_baseLayout.html' %}
+{% block pageHeader %}
+  <header
+    class="masthead"
+    style="background-image: url('/assets/img/{{ headerData.image }}')"
+  >
+    <div class="container position-relative px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <div class="site-heading">
+            <h1>{{ headerData.title }}</h1>
+            <span class="subheading">{{ headerData.subtitle }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block maincontent %}
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        {% for post in blogEntries %}
+          <div class="post-preview">
+            <a href="/post/{{ post.slug }}">
+              <h2 class="post-title">{{ post.title }}</h2>
+              <h3 class="post-subtitle">{{ post.teaser }}</h3>
+            </a>
+            <p class="post-meta">
+              Posted by
+              <a href="/author/{{ post.author }}">{{ post.authorName }}</a>
+              on {{ post.date }}
+            </p>
+          </div>
+          <!-- Divider-->
+          <hr class="my-4" />
+        {% endfor %}
+        {% if blogEntries.length === 0 %}
+          <div class="post-preview">
+            <h2 class="post-title">No more posts.</h2>
+            <p>
+              You have reached the end of the blog. Come back tomorrow for new
+              content. Probably.
+            </p>
+            <div class="d-flex justify-content-end mb-4">
+              <a class="btn btn-primary text-uppercase" href="/"
+                >← Back to the home page</a
+              >
+
+              <!-- Pager-->
+            </div>
+          </div>
+        {% else %}
+          <div class="d-flex justify-content-end mb-4">
+            <a
+              class="btn btn-primary text-uppercase"
+              href="/page/{{ meta.nextPage }}"
+              >Older Posts →</a
+            >
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
