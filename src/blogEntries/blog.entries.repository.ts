@@ -1,24 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { BlogEntries, BlogEntry } from '../types/BlogEntry';
 import { getDB } from '../db/database';
-// import { getQuotesData } from './quotes.data';
 
 @Injectable() // This makes it injectable into other parts of NestJS
 export class BlogEntriesRepository {
-  private quotes: BlogEntries = [];
-
-  // private async init() {
-  //   this.quotes = await getBlogEntriesData();
-  // }
+  private blogs: BlogEntries = [];
 
   async findAll(): Promise<BlogEntries> {
-    // await this.init();
     console.log('BlogEntriesRepository');
     const db = getDB();
 
     return new Promise((resolve, reject) => {
       db.all<BlogEntry>(
-        `SELECT * FROM posts`,
+        `SELECT * FROM blog_entries`,
         [],
         (error: Error | null, rowData: BlogEntries) => {
           if (error) return reject(error);
@@ -28,15 +22,19 @@ export class BlogEntriesRepository {
     });
   }
 
-  //   async findById(id: string): Promise<Quote | undefined> {
-  //     await this.init();
-  //     return this.quotes.find((quote) => quote.id === id); // Find a user by ID
-  //   }
+  findById(id: string): Promise<BlogEntry | undefined> {
+    console.log('findById');
+    const db = getDB();
 
-  //   async findRandom(): Promise<Quote | undefined> {
-  //     await this.init();
-
-  //     const randomIndex = Math.floor(Math.random() * this.quotes.length);
-  //     return this.quotes[randomIndex];
-  //   }
+    return new Promise((resolve, reject) => {
+      db.get<BlogEntry>(
+        `SELECT * FROM blog_entries WHERE id = ?`,
+        [id],
+        (error: Error | null, row: BlogEntry) => {
+          if (error) return reject(error);
+          resolve(row);
+        },
+      );
+    });
+  }
 }
